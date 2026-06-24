@@ -25,10 +25,23 @@ git clone https://github.com/aditya9u/Expense-tracker-backend.git
 ✅ MySQL Driver Added
 ✅ Profiles Configured
 ✅ Package Structure Created
+✅ MySQL Docker Container Created
+✅ Spring boot application connected to docker Container
 
 ## Next Steps
 
-- Install MySQL
 - Configure datasource
 - Create User entity
 - Create UserRepository
+
+## Entity Relationship Diagram
+
+User (1)
+   │
+   │ OneToMany
+   ▼
+Expense (*)
+   ▲
+   │ ManyToOne
+   │
+Category (1)
