@@ -27,6 +27,8 @@ git clone https://github.com/aditya9u/Expense-tracker-backend.git
 ✅ Package Structure Created
 ✅ MySQL Docker Container Created
 ✅ Spring boot application connected to docker Container
+✅ Actuators included 
+
 
 ## Next Steps
 
