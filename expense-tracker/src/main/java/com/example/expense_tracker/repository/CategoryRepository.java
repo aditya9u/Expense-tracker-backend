@@ -1,10 +1,11 @@
 package com.example.expense_tracker.repository;
-import com.example.expense_tracker.entity.User;
+
+import java.util.Locale.Category;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface UserRepository extends JpaRepository<User, Long> {
+public interface CategoryRepository extends JpaRepository<Category,Long> {
   
 }
