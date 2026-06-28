@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.stereotype.Service;
 
 import com.example.expense_tracker.entity.Category;
+import com.example.expense_tracker.exception.CategoryNotFoundException;
 import com.example.expense_tracker.repository.CategoryRepository;
 
 import lombok.RequiredArgsConstructor;
@@ -30,7 +31,7 @@ public Optional<Category> findById(Long id){
 
 public Category update(Long id,Category categoryRequest){
 
-  Category category = (Category) categoryRepository.findById(id).orElseThrow();
+  Category category = (Category) categoryRepository.findById(id).orElseThrow(()-> new CategoryNotFoundException(id));
 
   category.setName(categoryRequest.getName());
   category.setDescription(categoryRequest.getDescription());

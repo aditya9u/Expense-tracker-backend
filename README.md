@@ -28,14 +28,20 @@ git clone https://github.com/aditya9u/Expense-tracker-backend.git
 ✅ MySQL Docker Container Created
 ✅ Spring boot application connected to docker Container
 ✅ Actuators included 
+✅ CRUD Operations for Category included
+✅ Exception Handling for Category not found
+✅ dto for ExcepionResponse and GlobalException handled
+
 
 
 ## Next Steps
 
-- Configure datasource
-- Create User entity
-- Create UserRepository
-
+1. Expense CRUD
+2. User CRUD
+3. DTOs
+4. Validation
+5. More Exception Handling
+6. Security (JWT)
 ## Entity Relationship Diagram
 
 User (1)
