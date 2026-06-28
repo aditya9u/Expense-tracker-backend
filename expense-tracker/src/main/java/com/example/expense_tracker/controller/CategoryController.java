@@ -1,6 +1,8 @@
 package com.example.expense_tracker.controller;
 
 
+import com.example.expense_tracker.dto.requests.CategoryRequest;
+import com.example.expense_tracker.dto.responses.CategoryResponse;
 import com.example.expense_tracker.entity.Category;
 
 import java.util.List;
@@ -46,7 +48,7 @@ public class CategoryController {
   }
 
   @PutMapping("/{id}")
-  public Category updateCategory(@PathVariable Long id, @RequestBody Category category){
+  public Category updateCategory(@PathVariable Long id, @RequestBody CategoryRequest category){
 
     return categoryService.update(id, category);
 

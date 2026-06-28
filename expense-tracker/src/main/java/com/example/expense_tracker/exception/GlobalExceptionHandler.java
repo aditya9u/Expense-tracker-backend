@@ -13,9 +13,9 @@ import com.example.expense_tracker.dto.responses.ErrorResponse;
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
-  @ExceptionHandler(CategoryNotFoundException.class)
+  @ExceptionHandler({CategoryNotFoundException.class, UserNotFoundException.class,ExpenseNotFoundException.class})
     public ResponseEntity<ErrorResponse> handleCategoryNotFound(
-            CategoryNotFoundException ex) {
+            RuntimeException ex) {
 
         ErrorResponse error = new ErrorResponse(
             LocalDateTime.now(),

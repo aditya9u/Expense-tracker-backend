@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
+import com.example.expense_tracker.dto.requests.CategoryRequest;
 import com.example.expense_tracker.entity.Category;
 import com.example.expense_tracker.exception.CategoryNotFoundException;
 import com.example.expense_tracker.repository.CategoryRepository;
@@ -26,23 +27,27 @@ public List<Category> findAll(){
 }
 
 public Optional<Category> findById(Long id){
-  return categoryRepository.findById(id);
+  return Optional.of(categoryRepository.findById(id).orElseThrow(()-> new CategoryNotFoundException(id)));
 }
 
-public Category update(Long id,Category categoryRequest){
+public Category update(Long id,CategoryRequest categoryRequest){
 
-  Category category = (Category) categoryRepository.findById(id).orElseThrow(()-> new CategoryNotFoundException(id));
+  Category category = categoryRepository.findById(id).orElseThrow(()-> new CategoryNotFoundException(id));
 
-  category.setName(categoryRequest.getName());
-  category.setDescription(categoryRequest.getDescription());
-  category.setColor(categoryRequest.getColor());
-  category.setIcon(categoryRequest.getIcon());
+  category.setName(categoryRequest.name());
+  category.setDescription(categoryRequest.disctiption());
+  category.setColor(categoryRequest.color());
+  category.setIcon(categoryRequest.icon());
 
   return categoryRepository.save(category);
 }
 
   public void delete(Long id){
-    categoryRepository.deleteById(id);
+
+    Category category = categoryRepository.findById(id)
+        .orElseThrow(() -> new CategoryNotFoundException(id));
+
+    categoryRepository.delete(category);
   }
   
 }
