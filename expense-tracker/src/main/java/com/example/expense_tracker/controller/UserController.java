@@ -16,6 +16,7 @@ import com.example.expense_tracker.dto.responses.UserResponse;
 import com.example.expense_tracker.entity.User;
 import com.example.expense_tracker.service.UserService;
 
+import jakarta.validation.Valid;
 import jakarta.websocket.server.PathParam;
 import lombok.RequiredArgsConstructor;
 
@@ -27,7 +28,7 @@ public class UserController {
   private final UserService userService;
 
   @PostMapping
-  public UserResponse addUser(@RequestBody CreateUserRequest userRequest){
+  public UserResponse addUser(@RequestBody @Valid CreateUserRequest userRequest){
     return userService.addUser(userRequest);   
   }
 
@@ -43,7 +44,7 @@ public class UserController {
 
   }
   @PutMapping("/{id}")
-  public UserResponse updateUser(@PathVariable Long id, @RequestBody CreateUserRequest userRequest){
+  public UserResponse updateUser(@PathVariable Long id,@Valid @RequestBody CreateUserRequest userRequest){
 
     return userService.updateUser(id,userRequest);
 

@@ -15,6 +15,7 @@ import com.example.expense_tracker.dto.requests.ExpenseRequest;
 import com.example.expense_tracker.dto.responses.ExpenseResponse;
 import com.example.expense_tracker.service.ExpenseService;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 @RestController
@@ -25,30 +26,30 @@ public class ExpenseController {
   private final ExpenseService expenseService;
 
   @PostMapping
-  public ExpenseResponse addExpense(@RequestBody ExpenseRequest expenseRequest){
+  public ExpenseResponse addExpense(@RequestBody @Valid ExpenseRequest expenseRequest){
 
     return expenseService.addExpense(expenseRequest);
 
   }
-  // @GetMapping
-  // public List<ExpenseResponse> getAllExpenses(){
+  @GetMapping
+  public List<ExpenseResponse> getAllExpenses(){
 
-  //   return expenseService.getAllExpenses();
-  // }
+    return expenseService.getAllExpenses();
+  }
 
-  // @GetMapping("/{id}")
-  // public ExpenseResponse getExpenseById(@PathVariable Long id){
-  //   return expenseService.getExpenseById(id);
-  // }
+  @GetMapping("/{id}")
+  public ExpenseResponse getExpenseById(@PathVariable Long id){
+    return expenseService.getExpenseById(id);
+  }
 
-  // @PutMapping("/{id}")
-  // public ExpenseResponse updateExpense(@PathVariable Long id, @RequestBody ExpenseRequest expenseRequest){
-  //   return expenseService.updateExpense(id,expenseRequest);
-  // }
+  @PutMapping("/{id}")
+  public ExpenseResponse updateExpense(@PathVariable Long id,@Valid @RequestBody ExpenseRequest expenseRequest){
+    return expenseService.updateExpense(id,expenseRequest);
+  }
 
-  // @DeleteMapping("/{id}")
-  // public void deleteExpense(@PathVariable Long id){
-  //    expenseService.deleteExpense(id);
-  // }
+  @DeleteMapping("/{id}")
+  public void deleteExpense(@PathVariable Long id){
+     expenseService.deleteExpense(id);
+  }
     
 }

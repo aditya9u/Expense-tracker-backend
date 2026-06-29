@@ -18,7 +18,14 @@ public class CategoryService {
 
 private final CategoryRepository categoryRepository;
 
-public Category save(Category category){
+public Category save(CategoryRequest categoryRequest){
+
+  Category category = new Category();
+
+    category.setName(categoryRequest.name());
+    category.setDescription(categoryRequest.disctiption());
+    category.setColor(categoryRequest.color());
+    category.setIcon(categoryRequest.icon());
   return categoryRepository.save(category);
 }
 

@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.expense_tracker.service.CategoryService;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 @RestController
@@ -29,7 +30,7 @@ public class CategoryController {
   private final CategoryService categoryService;
 
   @PostMapping
-  public Category createCategory(@RequestBody Category category){
+  public Category createCategory(@Valid @RequestBody CategoryRequest category){
 
     return categoryService.save(category);
 
@@ -48,7 +49,7 @@ public class CategoryController {
   }
 
   @PutMapping("/{id}")
-  public Category updateCategory(@PathVariable Long id, @RequestBody CategoryRequest category){
+  public Category updateCategory(@PathVariable Long id,@Valid @RequestBody CategoryRequest category){
 
     return categoryService.update(id, category);
 
