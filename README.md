@@ -2,29 +2,29 @@
 This is a backend project which is used to track expenses in day to day basis
 
 ## Features
-User Management
-Category Management
-Expense Management
-Validation
-Global Exception Handling
-Swagger Documentation
+User Management. 
+Category Management. 
+Expense Management. 
+Validation. 
+Global Exception Handling. 
+Swagger Documentation. 
 
 ## Tech Stack 
-Spring Boot
-Spring Data JPA
-MySQL
-Docker
-Maven
-Swagger/OpenAPI
+Spring Boot. 
+Spring Data JPA. 
+MySQL. 
+Docker. 
+Maven. 
+Swagger/OpenAPI. 
 
 
 ## Prerequisites
 Before running this project, ensure the following are installed:
 
-Java 21 (or your project's Java version)
-Maven 3.9+
-Docker Desktop
-Git
+Java 21 (or your project's Java version). 
+Maven 3.9+. 
+Docker Desktop. 
+Git. 
 
 ## Installation
 MySQL Database
@@ -47,7 +47,7 @@ Configuration
 
 Update the datasource configuration in:
 
-src/main/resources/application-dev.properties
+see [application-dev.properties](src/main/resources/application-dev.properties)
 
 Example:
 
@@ -73,24 +73,24 @@ git clone https://github.com/aditya9u/Expense-tracker-backend.git
 ## Current Status
 v 0.1.0
 ==================================================
-✅ Spring Boot Project Created
-✅ Spring Data JPA Added
-✅ MySQL Driver Added
-✅ Profiles Configured
-✅ Package Structure Created
-✅ MySQL Docker Container Created
-✅ Spring boot application connected to docker Container
-✅ Actuators included 
+✅ Spring Boot Project Created. 
+✅ Spring Data JPA Added. 
+✅ MySQL Driver Added. 
+✅ Profiles Configured. 
+✅ Package Structure Created. 
+✅ MySQL Docker Container Created. 
+✅ Spring boot application connected to docker Container. 
+✅ Actuators included. 
 =========================================================
 v 0.2.0
 =========================================================
-✅ CRUD Operations for Category included
-✅ Exception Handling for Category not found
-✅ dto for ExceptionResponse and GlobalException handled
-✅ CRUD Operations for User and Expense is created
-✅ Exception handling for usernotfound and expensenotfound is created
-✅ Validation of all dtos are created
-✅ Swagger is included for api documentation
+✅ CRUD Operations for Category included. 
+✅ Exception Handling for Category not found. 
+✅ dto for ExceptionResponse and GlobalException handled. 
+✅ CRUD Operations for User and Expense is created. 
+✅ Exception handling for usernotfound and expensenotfound is created. 
+✅ Validation of all dtos are created. 
+✅ Swagger is included for api documentation. 
 =========================================================
 
 
@@ -98,13 +98,13 @@ v 0.2.0
 ## Next Steps
 
 1. Pagination
-2. Expense Filtering
+2. Expense Filtering 
 3. Search APIs
 4. Auditing (createdAt, updatedAt)
 5. Register/Login apis
 6. Spring Security (JWT)
 ## Entity Relationship Diagram
-
+```text
 User (1)
    │
    │ OneToMany
