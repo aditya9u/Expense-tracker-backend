@@ -73,17 +73,20 @@ git clone https://github.com/aditya9u/Expense-tracker-backend.git
 ## Current Status
 v 0.1.0
 ==================================================
-1. Spring Boot Project Created. 
-2. Spring Data JPA Added. 
-3. MySQL Driver Added. 
-4. Profiles Configured. 
-5. Package Structure Created. 
-6. MySQL Docker Container Created. 
-7. Spring boot application connected to docker Container. 
-8. Actuators included. 
-=========================================================
+```text
+1. Spring Boot Project Created 
+2. Spring Data JPA Added 
+3. MySQL Driver Added 
+4. Profiles Configured 
+5. Package Structure Created 
+6. MySQL Docker Container Created 
+7. Spring boot application connected to docker Container 
+8. Actuators included 
+```
+
 v 0.2.0
 =========================================================
+```text
 1. CRUD Operations for Category included. 
 2. Exception Handling for Category not found. 
 3. dto for ExceptionResponse and GlobalException handled. 
@@ -91,8 +94,7 @@ v 0.2.0
 5. Exception handling for usernotfound and expensenotfound is created. 
 6. Validation of all dtos are created. 
 7. Swagger is included for api documentation. 
-=========================================================
-
+```
 
 
 ## Next Steps
