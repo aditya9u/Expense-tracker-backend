@@ -2,29 +2,29 @@
 This is a backend project which is used to track expenses in day to day basis
 
 ## Features
-User Management. 
-Category Management. 
-Expense Management. 
-Validation. 
-Global Exception Handling. 
-Swagger Documentation. 
+User Management<br> 
+Category Management<br> 
+Expense Management<br> 
+Validation<br> 
+Global Exception Handling<br> 
+Swagger Documentation<br> 
 
 ## Tech Stack 
-Spring Boot. 
-Spring Data JPA. 
-MySQL. 
-Docker. 
-Maven. 
-Swagger/OpenAPI. 
+Spring Boot<br> 
+Spring Data JPA<br> 
+MySQL<br>
+Docker<br>
+Maven<br> 
+Swagger/OpenAPI<br>
 
 
 ## Prerequisites
 Before running this project, ensure the following are installed:
 
-Java 21 (or your project's Java version). 
-Maven 3.9+. 
-Docker Desktop. 
-Git. 
+Java 21 (or your project's Java version)<br>
+Maven 3.9+<br>
+Docker Desktop<br>
+Git<br> 
 
 ## Installation
 MySQL Database
@@ -73,24 +73,24 @@ git clone https://github.com/aditya9u/Expense-tracker-backend.git
 ## Current Status
 v 0.1.0
 ==================================================
-✅ Spring Boot Project Created. 
-✅ Spring Data JPA Added. 
-✅ MySQL Driver Added. 
-✅ Profiles Configured. 
-✅ Package Structure Created. 
-✅ MySQL Docker Container Created. 
-✅ Spring boot application connected to docker Container. 
-✅ Actuators included. 
+1. Spring Boot Project Created. 
+2. Spring Data JPA Added. 
+3. MySQL Driver Added. 
+4. Profiles Configured. 
+5. Package Structure Created. 
+6. MySQL Docker Container Created. 
+7. Spring boot application connected to docker Container. 
+8. Actuators included. 
 =========================================================
 v 0.2.0
 =========================================================
-✅ CRUD Operations for Category included. 
-✅ Exception Handling for Category not found. 
-✅ dto for ExceptionResponse and GlobalException handled. 
-✅ CRUD Operations for User and Expense is created. 
-✅ Exception handling for usernotfound and expensenotfound is created. 
-✅ Validation of all dtos are created. 
-✅ Swagger is included for api documentation. 
+1. CRUD Operations for Category included. 
+2. Exception Handling for Category not found. 
+3. dto for ExceptionResponse and GlobalException handled. 
+4. CRUD Operations for User and Expense is created. 
+5. Exception handling for usernotfound and expensenotfound is created. 
+6. Validation of all dtos are created. 
+7. Swagger is included for api documentation. 
 =========================================================
 
 
