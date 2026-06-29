@@ -1,5 +1,6 @@
 package com.example.expense_tracker.controller;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.expense_tracker.dto.requests.ExpenseRequest;
@@ -31,7 +33,7 @@ public class ExpenseController {
     return expenseService.addExpense(expenseRequest);
 
   }
-  @GetMapping
+  @GetMapping("/all")
   public List<ExpenseResponse> getAllExpenses(){
 
     return expenseService.getAllExpenses();
@@ -51,5 +53,18 @@ public class ExpenseController {
   public void deleteExpense(@PathVariable Long id){
      expenseService.deleteExpense(id);
   }
-    
+
+  @GetMapping
+public List<ExpenseResponse> getExpenses(
+        @RequestParam(required = false) Long userId,
+        @RequestParam(required = false) Long categoryId,
+        @RequestParam(required = false) LocalDate startDate,
+        @RequestParam(required = false) LocalDate endDate) {
+
+    return  expenseService.getExpenses(
+            userId,
+            categoryId,
+            startDate,
+            endDate);
+}
 }

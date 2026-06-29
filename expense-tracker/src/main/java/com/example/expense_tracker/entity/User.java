@@ -6,11 +6,16 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.persistence.UniqueConstraint;
 import lombok.Getter;
 import lombok.Setter;
 
 @Entity
-@Table(name = "users")
+@Table(
+  name = "users",
+  uniqueConstraints = {
+    @UniqueConstraint(columnNames = "email")
+  })
 @Getter
 @Setter
 public class User {
@@ -21,7 +26,7 @@ public class User {
 
   private String name;
 
-  @Column(unique = true)
+  @Column(nullable = false ,unique = true)
   private String email;
 
   private String password;

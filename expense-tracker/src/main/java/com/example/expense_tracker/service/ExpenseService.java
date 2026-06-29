@@ -1,5 +1,6 @@
 package com.example.expense_tracker.service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -84,6 +85,40 @@ public class ExpenseService {
     
   }
 
+ public List<ExpenseResponse> getExpenses(
+        Long userId,
+        Long categoryId,
+        LocalDate startDate,
+        LocalDate endDate){
+
+          if(userId!=null){
+            return expenseRepository.findExpenseByUserId(userId).stream().map(this::mapToResponse).toList();
+          }
+          if(categoryId != null){
+            return expenseRepository.findExpenseByCategoryId(categoryId).stream().map(this::mapToResponse).toList();
+
+          }
+          if(userId!=null && categoryId!=null){
+            return expenseRepository.findByUserIdAndCategoryId(userId,categoryId).stream().map(this::mapToResponse).toList();
+
+          }
+          if(startDate!=null && endDate!=null){
+            return expenseRepository.findByDateBetween(startDate, endDate).stream().map(this::mapToResponse).toList();
+
+          }
+          if(startDate!=null && endDate==null){
+            return expenseRepository.findByDateGreaterThanEqual(startDate).stream().map(this::mapToResponse).toList();
+
+          }
+          if(startDate==null && endDate!=null){
+            return expenseRepository.findByDateLessThanEqual(endDate).stream().map(this::mapToResponse).toList();
+
+          }
+
+          return expenseRepository.findAll().stream().map(this::mapToResponse).toList();
+
+        }
+
    private ExpenseResponse mapToResponse(Expense expense) {
 
         return new ExpenseResponse(
@@ -97,6 +132,8 @@ public class ExpenseService {
                 expense.getCategory().getName()
         );
     }
+
+    
 
 
   
