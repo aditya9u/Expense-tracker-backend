@@ -2,7 +2,9 @@ package com.example.expense_tracker.service;
 
 import java.time.LocalDate;
 import java.util.List;
-
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -85,37 +87,38 @@ public class ExpenseService {
     
   }
 
- public List<ExpenseResponse> getExpenses(
+ public Page<ExpenseResponse> getExpenses(
         Long userId,
         Long categoryId,
         LocalDate startDate,
-        LocalDate endDate){
+        LocalDate endDate,
+        Pageable pageable){
 
           if(userId!=null){
-            return expenseRepository.findExpenseByUserId(userId).stream().map(this::mapToResponse).toList();
+            return expenseRepository.findExpenseByUserId(userId,pageable).map(this::mapToResponse);
           }
           if(categoryId != null){
-            return expenseRepository.findExpenseByCategoryId(categoryId).stream().map(this::mapToResponse).toList();
+            return expenseRepository.findExpenseByCategoryId(categoryId,pageable).map(this::mapToResponse);
 
           }
           if(userId!=null && categoryId!=null){
-            return expenseRepository.findByUserIdAndCategoryId(userId,categoryId).stream().map(this::mapToResponse).toList();
+            return expenseRepository.findByUserIdAndCategoryId(userId,categoryId,pageable).map(this::mapToResponse);
 
           }
           if(startDate!=null && endDate!=null){
-            return expenseRepository.findByDateBetween(startDate, endDate).stream().map(this::mapToResponse).toList();
+            return expenseRepository.findByDateBetween(startDate, endDate,pageable).map(this::mapToResponse);
 
           }
           if(startDate!=null && endDate==null){
-            return expenseRepository.findByDateGreaterThanEqual(startDate).stream().map(this::mapToResponse).toList();
+            return expenseRepository.findByDateGreaterThanEqual(startDate,pageable).map(this::mapToResponse);
 
           }
           if(startDate==null && endDate!=null){
-            return expenseRepository.findByDateLessThanEqual(endDate).stream().map(this::mapToResponse).toList();
+            return expenseRepository.findByDateLessThanEqual(endDate,pageable).map(this::mapToResponse);
 
           }
 
-          return expenseRepository.findAll().stream().map(this::mapToResponse).toList();
+          return expenseRepository.findAll(pageable).map(this::mapToResponse);
 
         }
 

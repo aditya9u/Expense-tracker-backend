@@ -6,6 +6,8 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -15,22 +17,22 @@ import com.example.expense_tracker.entity.User;
 @Repository
 public interface ExpenseRepository extends JpaRepository<Expense, Long> {
 
-  List<Expense> findExpenseByUserId(Long userId);
+  Page<Expense> findExpenseByUserId(Long userId, Pageable pageable);
 
-  List<Expense> findExpenseByCategoryId(Long categoryId);
+  Page<Expense> findExpenseByCategoryId(Long categoryId, Pageable pageable);
 
-  List<Expense> findByUserIdAndCategoryId(
+  Page<Expense> findByUserIdAndCategoryId(
         Long userId,
-        Long categoryId);
+        Long categoryId, Pageable pageable);
 
-  List<Expense> findByDateBetween(
+  Page<Expense> findByDateBetween(
         LocalDate startDate,
-        LocalDate endDate);
+        LocalDate endDate, Pageable pageable);
 
-   List<Expense> findByDateLessThanEqual(
-        LocalDate endDate);
+   Page<Expense> findByDateLessThanEqual(
+        LocalDate endDate, Pageable pageable);
         
-  List<Expense> findByDateGreaterThanEqual(LocalDate startDate);
+  Page<Expense> findByDateGreaterThanEqual(LocalDate startDate, Pageable pageable);
 
   
 }

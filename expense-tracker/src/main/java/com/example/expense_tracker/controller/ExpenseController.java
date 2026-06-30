@@ -3,6 +3,9 @@ package com.example.expense_tracker.controller;
 import java.time.LocalDate;
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -55,16 +58,21 @@ public class ExpenseController {
   }
 
   @GetMapping
-public List<ExpenseResponse> getExpenses(
+public Page<ExpenseResponse> getExpenses(
         @RequestParam(required = false) Long userId,
         @RequestParam(required = false) Long categoryId,
         @RequestParam(required = false) LocalDate startDate,
-        @RequestParam(required = false) LocalDate endDate) {
+        @RequestParam(required = false) LocalDate endDate,
+        @RequestParam(defaultValue = "0") int page,
+        @RequestParam(defaultValue = "10") int size) {
+
+        Pageable pageAble = PageRequest.of(page, size);
 
     return  expenseService.getExpenses(
             userId,
             categoryId,
             startDate,
-            endDate);
+            endDate,
+            pageAble);
 }
 }
