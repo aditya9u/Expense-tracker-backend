@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import com.example.expense_tracker.dto.requests.CreateUserRequest;
 import com.example.expense_tracker.dto.responses.UserResponse;
 import com.example.expense_tracker.entity.User;
+import com.example.expense_tracker.exception.EmailAlreadyExistsException;
 import com.example.expense_tracker.exception.UserNotFoundException;
 import com.example.expense_tracker.repository.UserRepository;
 
@@ -18,6 +19,10 @@ public class UserService {
   private final UserRepository userRepository;
 
   public UserResponse addUser(CreateUserRequest userRequest) {
+
+    if(userRepository.existsByEmail(userRequest.email())){
+      throw new EmailAlreadyExistsException(userRequest.email());
+    }
 
     User user = new User();
 

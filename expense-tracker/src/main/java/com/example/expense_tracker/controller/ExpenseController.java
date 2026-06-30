@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -64,9 +65,15 @@ public Page<ExpenseResponse> getExpenses(
         @RequestParam(required = false) LocalDate startDate,
         @RequestParam(required = false) LocalDate endDate,
         @RequestParam(defaultValue = "0") int page,
-        @RequestParam(defaultValue = "10") int size) {
+        @RequestParam(defaultValue = "10") int size,
+        @RequestParam(required = false) String sortBy,
+        @RequestParam(defaultValue = "desc") String direction ) {
 
-        Pageable pageAble = PageRequest.of(page, size);
+          Sort sort = direction.equalsIgnoreCase("asc")
+        ? Sort.by(sortBy).ascending()
+        : Sort.by(sortBy).descending();
+
+        Pageable pageAble = PageRequest.of(page, size, sort);
 
     return  expenseService.getExpenses(
             userId,

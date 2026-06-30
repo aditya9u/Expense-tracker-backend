@@ -14,7 +14,7 @@ import com.example.expense_tracker.dto.responses.ErrorResponse;
 public class GlobalExceptionHandler {
 
   @ExceptionHandler({CategoryNotFoundException.class, UserNotFoundException.class,ExpenseNotFoundException.class})
-    public ResponseEntity<ErrorResponse> handleCategoryNotFound(
+    public ResponseEntity<ErrorResponse> handleExceptionNotFound(
             RuntimeException ex) {
 
         ErrorResponse error = new ErrorResponse(
@@ -28,5 +28,21 @@ public class GlobalExceptionHandler {
                 .status(HttpStatus.NOT_FOUND)
                 .body(error);
     }
+
+    @ExceptionHandler(EmailAlreadyExistsException.class)
+public ResponseEntity<ErrorResponse> handleEmailAlreadyExists(
+        EmailAlreadyExistsException ex) {
+
+    ErrorResponse error = new ErrorResponse(
+            LocalDateTime.now(),
+            HttpStatus.CONFLICT.value(),
+            HttpStatus.CONFLICT.name(),
+            ex.getMessage()
+
+    );
+
+    return ResponseEntity.status(HttpStatus.CONFLICT)
+            .body(error);
+}
     
 }
