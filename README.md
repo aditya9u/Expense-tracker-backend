@@ -96,15 +96,19 @@ v 0.2.0
 7. Swagger is included for api documentation. 
 ```
 
-
-## Next Steps
-
+v 0.3.0
+============================
+```text
 1. Pagination
 2. Expense Filtering 
 3. Search APIs
 4. Auditing (createdAt, updatedAt)
-5. Register/Login apis
-6. Spring Security (JWT)
+```
+
+## Next Steps
+
+1. Register/Login apis
+2. Spring Security (JWT)
 ## Entity Relationship Diagram
 ```text
 User (1)
