@@ -105,10 +105,22 @@ v 0.3.0
 4. Auditing (createdAt, updatedAt)
 ```
 
-## Next Steps
+v 0.4.0
+============================
+```text
+1. Implemented Registration Apis
+2. Implemented Login Apis
+3. Implemented password Encoder
+4. Comparing the password
+```
 
-1. Register/Login apis
-2. Spring Security (JWT)
+## Next Steps
+1. Spring Security (JWT)
+2. jwtService
+3. token generation
+4. token validation
+5. session management
+
 ## Entity Relationship Diagram
 ```text
 User (1)
