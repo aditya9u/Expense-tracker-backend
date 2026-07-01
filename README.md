@@ -114,12 +114,25 @@ v 0.4.0
 4. Comparing the password
 ```
 
-## Next Steps
+v 0.5.0
+=============================
+```text
 1. Spring Security (JWT)
 2. jwtService
 3. token generation
 4. token validation
 5. session management
+```
+
+## Next Steps
+1. Create CurrentUserService
+2. Get current user from SecurityContext
+3. Expense belongs to User
+4. Category belongs to User
+5. User sees only own expenses
+6. User sees only own categories
+7. Remove userId from request DTOs
+
 
 ## Entity Relationship Diagram
 ```text
