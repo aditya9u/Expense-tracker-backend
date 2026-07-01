@@ -24,6 +24,7 @@ public class AuthService {
 
   private final PasswordEncoder passwordEncoder;
   private final UserRepository userRepository;
+  private final JWTService jwtService;
 
   public RegisterResponse register(RegisterRequest registerRequest) {
 
@@ -61,11 +62,14 @@ public class AuthService {
         );
     }
 
+    String token = jwtService.generateToken(user);
+
       return new LoginResponse(
             user.getId(),
             user.getName(),
             user.getEmail(),
-            "Login successful","json"
+            token,
+            "Bearer"
     );
 
   }
