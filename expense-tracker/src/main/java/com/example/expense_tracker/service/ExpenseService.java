@@ -27,12 +27,13 @@ import lombok.RequiredArgsConstructor;
 public class ExpenseService {
 
   private final ExpenseRepository expenseRepository;
-  private final UserRepository userRepository;
   private final CategoryRepository categoryRepository;
+  private final CurrentUserService currentUserService;
 
   public ExpenseResponse addExpense(ExpenseRequest expenseRequest) {
 
-    User user = userRepository.findById(expenseRequest.userId()).orElseThrow(()->new UserNotFoundException(expenseRequest.userId()));
+    User user = currentUserService.getCurrentUser();
+
     Category category = categoryRepository.findById(expenseRequest.categoryId()).orElseThrow(()->new CategoryNotFoundException(expenseRequest.categoryId()));
 
     Expense expense = new Expense();
@@ -50,22 +51,19 @@ public class ExpenseService {
     
   }
 
-  public List<ExpenseResponse> getAllExpenses() {
-
-    return expenseRepository.findAll().stream().map(this :: mapToResponse).toList();
-  }
-
   public ExpenseResponse getExpenseById(Long id) {
+    User user = currentUserService.getCurrentUser();
 
-    return mapToResponse(expenseRepository.findById(id).orElseThrow(()-> new ExpenseNotFoundException(id)));
+    return mapToResponse(expenseRepository.findByUserAndId(user,id).orElseThrow(()-> new ExpenseNotFoundException(id)));
     
   }
 
   public ExpenseResponse updateExpense(Long id, ExpenseRequest expenseRequest) {
 
-    Expense expense = expenseRepository.findById(id).orElseThrow(()-> new ExpenseNotFoundException(id));
+    User user = currentUserService.getCurrentUser();
 
-    User user = userRepository.findById(expenseRequest.userId()).orElseThrow(()->new UserNotFoundException(expenseRequest.userId()));
+    Expense expense = expenseRepository.findByUserAndId(user,id).orElseThrow(()-> new ExpenseNotFoundException(id));
+
     Category category = categoryRepository.findById(expenseRequest.categoryId()).orElseThrow(()->new CategoryNotFoundException(expenseRequest.categoryId()));
 
 
@@ -81,44 +79,40 @@ public class ExpenseService {
 
   public void deleteExpense(Long id) {
 
-    Expense expense = expenseRepository.findById(id).orElseThrow(()-> new ExpenseNotFoundException(id));
+    User user = currentUserService.getCurrentUser();
+
+    Expense expense = expenseRepository.findByUserAndId(user,id).orElseThrow(()-> new ExpenseNotFoundException(id));
 
     expenseRepository.delete(expense);
     
   }
 
  public Page<ExpenseResponse> getExpenses(
-        Long userId,
         Long categoryId,
         LocalDate startDate,
         LocalDate endDate,
         Pageable pageable){
 
-          if(userId!=null){
-            return expenseRepository.findExpenseByUserId(userId,pageable).map(this::mapToResponse);
-          }
-          if(categoryId != null){
-            return expenseRepository.findExpenseByCategoryId(categoryId,pageable).map(this::mapToResponse);
+          User user = currentUserService.getCurrentUser();
 
-          }
-          if(userId!=null && categoryId!=null){
-            return expenseRepository.findByUserIdAndCategoryId(userId,categoryId,pageable).map(this::mapToResponse);
+          if(categoryId!=null){
+            return expenseRepository.findByUserAndCategoryId(user,categoryId,pageable).map(this::mapToResponse);
 
           }
           if(startDate!=null && endDate!=null){
-            return expenseRepository.findByDateBetween(startDate, endDate,pageable).map(this::mapToResponse);
+            return expenseRepository.findByUserAndDateBetween(user,startDate, endDate,pageable).map(this::mapToResponse);
 
           }
           if(startDate!=null && endDate==null){
-            return expenseRepository.findByDateGreaterThanEqual(startDate,pageable).map(this::mapToResponse);
+            return expenseRepository.findByUserAndDateGreaterThanEqual(user,startDate,pageable).map(this::mapToResponse);
 
           }
           if(startDate==null && endDate!=null){
-            return expenseRepository.findByDateLessThanEqual(endDate,pageable).map(this::mapToResponse);
+            return expenseRepository.findByUserAndDateLessThanEqual(user,endDate,pageable).map(this::mapToResponse);
 
           }
 
-          return expenseRepository.findAll(pageable).map(this::mapToResponse);
+          return expenseRepository.findByUser(user,pageable).map(this::mapToResponse);
 
         }
 

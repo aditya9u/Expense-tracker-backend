@@ -13,6 +13,9 @@ import com.example.expense_tracker.dto.requests.LoginRequest;
 import com.example.expense_tracker.dto.requests.RegisterRequest;
 import com.example.expense_tracker.dto.responses.LoginResponse;
 import com.example.expense_tracker.dto.responses.RegisterResponse;
+import com.example.expense_tracker.dto.responses.UserResponse;
+import com.example.expense_tracker.entity.User;
+import com.example.expense_tracker.service.CurrentUserService;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -24,6 +27,7 @@ public class AuthController {
 
   private final AuthService authService;
   private final JWTService jwtService;
+  private final CurrentUserService currentUserService;
 
   @PostMapping("/register")
   @ResponseStatus(HttpStatus.CREATED)
@@ -37,11 +41,13 @@ public class AuthController {
     return authService.login(loginRequest);
   }
 
-  @GetMapping("/test-token")
-  public String testToken(
+  @GetMapping("/profile")
+  public UserResponse testToken(
         @RequestParam String token) {
 
-    return jwtService.extractUsername(token);
+          User user = currentUserService.getCurrentUser();
+
+    return new UserResponse(user.getId(), user.getName(), user.getEmail());
 }
   
 }

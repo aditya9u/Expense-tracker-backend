@@ -29,12 +29,12 @@ public class CategoryController {
 
   private final CategoryService categoryService;
 
-  @PostMapping
-  public Category createCategory(@Valid @RequestBody CategoryRequest category){
+  // @PostMapping
+  // public Category createCategory(@Valid @RequestBody CategoryRequest category){
 
-    return categoryService.save(category);
+  //   return categoryService.save(category);
 
-  }
+  // }
 
   @GetMapping
   public List<Category> getAllCategories(){
@@ -48,16 +48,16 @@ public class CategoryController {
     return categoryService.findById(id);
   }
 
-  @PutMapping("/{id}")
-  public Category updateCategory(@PathVariable Long id,@Valid @RequestBody CategoryRequest category){
+  // @PutMapping("/{id}")
+  // public Category updateCategory(@PathVariable Long id,@Valid @RequestBody CategoryRequest category){
 
-    return categoryService.update(id, category);
+  //   return categoryService.update(id, category);
 
-  }
+  // }
 
-  @DeleteMapping("/{id}")
-  public void deleteCategory(@PathVariable Long id){
-    categoryService.delete(id);
-  }
+  // @DeleteMapping("/{id}")
+  // public void deleteCategory(@PathVariable Long id){
+  //   categoryService.delete(id);
+  // }
   
 }

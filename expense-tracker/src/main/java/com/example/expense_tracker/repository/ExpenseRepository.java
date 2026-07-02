@@ -33,6 +33,20 @@ public interface ExpenseRepository extends JpaRepository<Expense, Long> {
         LocalDate endDate, Pageable pageable);
         
   Page<Expense> findByDateGreaterThanEqual(LocalDate startDate, Pageable pageable);
+  Page<Expense> findByUser(
+        User user,
+        Pageable pageable
+);
+
+  Page<Expense> findByUserAndCategoryId(User user, Long categoryId, Pageable pageable);
+
+  Page<Expense> findByUserAndDateBetween(User user, LocalDate startDate, LocalDate endDate, Pageable pageable);
+
+  Page<Expense> findByUserAndDateGreaterThanEqual(User user, LocalDate startDate, Pageable pageable);
+
+  Page<Expense> findByUserAndDateLessThanEqual(User user, LocalDate endDate, Pageable pageable);
+
+  Optional<Expense> findByUserAndId(User user, Long id);
 
   
 }

@@ -37,11 +37,11 @@ public class ExpenseController {
     return expenseService.addExpense(expenseRequest);
 
   }
-  @GetMapping("/all")
-  public List<ExpenseResponse> getAllExpenses(){
+  // @GetMapping("/all")
+  // public List<ExpenseResponse> getAllExpenses(){
 
-    return expenseService.getAllExpenses();
-  }
+  //   return expenseService.getAllExpenses();
+  // }
 
   @GetMapping("/{id}")
   public ExpenseResponse getExpenseById(@PathVariable Long id){
@@ -60,23 +60,18 @@ public class ExpenseController {
 
   @GetMapping
 public Page<ExpenseResponse> getExpenses(
-        @RequestParam(required = false) Long userId,
         @RequestParam(required = false) Long categoryId,
         @RequestParam(required = false) LocalDate startDate,
         @RequestParam(required = false) LocalDate endDate,
         @RequestParam(defaultValue = "0") int page,
         @RequestParam(defaultValue = "10") int size,
-        @RequestParam(required = false) String sortBy,
-        @RequestParam(defaultValue = "desc") String direction ) {
+        @RequestParam(required = false) String direction ) {
 
-          Sort sort = direction.equalsIgnoreCase("asc")
-        ? Sort.by(sortBy).ascending()
-        : Sort.by(sortBy).descending();
+         
 
-        Pageable pageAble = PageRequest.of(page, size, sort);
+        Pageable pageAble = PageRequest.of(page, size);
 
     return  expenseService.getExpenses(
-            userId,
             categoryId,
             startDate,
             endDate,
