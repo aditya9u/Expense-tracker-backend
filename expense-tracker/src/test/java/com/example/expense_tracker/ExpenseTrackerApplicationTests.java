@@ -1,13 +1,13 @@
-// package com.example.expense_tracker;
+package com.example.expense_tracker;
 
-// import org.junit.jupiter.api.Test;
-// import org.springframework.boot.test.context.SpringBootTest;
+import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.context.SpringBootTest;
 
-// @SpringBootTest
-// class ExpenseTrackerApplicationTests {
+@SpringBootTest
+class ExpenseTrackerApplicationTests {
 
-// 	@Test
-// 	void contextLoads() {
-// 	}
+	@Test
+	void contextLoads() {
+	}
 
-// }
+}

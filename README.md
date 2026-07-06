@@ -135,6 +135,14 @@ v 0.6.0
 7. Remove userId from request DTOs
 ```
 
+v0.7.0
+=======================================
+1. Analytics for users spendings
+2. user can check spendings category wise
+3. user can check spendings month wise
+4. user can also check spendings yearly
+========================================
+
 ## Entity Relationship Diagram
 ```text
 User (1)
