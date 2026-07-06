@@ -1,10 +1,10 @@
 package com.example.expense_tracker.dto.responses;
 
 import java.math.BigDecimal;
-import java.util.List;
 
-public record CategoryResponse(
-         
+public record CategorySpendingResponse(
+  String category,
+  BigDecimal amount
 ) {
-       
-};
+  
+}
