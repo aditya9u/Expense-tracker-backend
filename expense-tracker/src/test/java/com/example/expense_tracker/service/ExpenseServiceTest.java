@@ -10,6 +10,7 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Optional;
 
+import org.jspecify.annotations.Nullable;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -22,6 +23,7 @@ import com.example.expense_tracker.entity.Category;
 import com.example.expense_tracker.entity.Expense;
 import com.example.expense_tracker.entity.User;
 import com.example.expense_tracker.exception.CategoryNotFoundException;
+import com.example.expense_tracker.exception.ExpenseNotFoundException;
 import com.example.expense_tracker.repository.CategoryRepository;
 import com.example.expense_tracker.repository.ExpenseRepository;
 
@@ -89,6 +91,45 @@ public class ExpenseServiceTest {
       assertThrows(
         CategoryNotFoundException.class,
         () -> expenseService.addExpense(request)
+      );
+
+    }
+    @Test
+    void shouldGetExpenseByCurrentUserId(){
+      User user = new User();
+      user.setId(1L);
+
+      Category category = new Category();
+      category.setId(1L);
+
+      when(currentUserService.getCurrentUser()).thenReturn(user);
+
+      @Nullable Optional<Expense> expense = Optional.ofNullable(new Expense());
+      Expense expense2 = expense.get();
+      expense2.setCategory(category);
+      expense2.setUser(user);
+      expense2.setId(1L);
+    
+
+      when(expenseRepository.findByUserAndId(user,1L)).thenReturn(expense);
+
+      ExpenseResponse expenseResponse = expenseService.getExpenseById(1L);
+
+      assertNotNull(expenseResponse);
+
+
+    }
+
+    @Test
+    void shouldThrowExceptionWhenExpenseNotFound(){
+        User user = new User();
+        user.setId(1L);
+
+        when(currentUserService.getCurrentUser()).thenReturn(user);
+
+         assertThrows(
+        ExpenseNotFoundException.class,
+        () -> expenseService.getExpenseById(1L)
       );
 
     }
