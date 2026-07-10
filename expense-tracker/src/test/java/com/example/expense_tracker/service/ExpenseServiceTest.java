@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.math.BigDecimal;
@@ -40,8 +41,8 @@ public class ExpenseServiceTest {
   @InjectMocks
   private ExpenseService expenseService;
 
-  @Test
-  void shouldCreateExpenseSuccessfully(){
+    @Test
+    void shouldCreateExpenseSuccessfully(){
 
     User user = new User();
     user.setId(1L);
@@ -94,6 +95,7 @@ public class ExpenseServiceTest {
       );
 
     }
+   
     @Test
     void shouldGetExpenseByCurrentUserId(){
       User user = new User();
@@ -134,4 +136,105 @@ public class ExpenseServiceTest {
 
     }
   
+    @Test
+    void shouldThrowExceptionWhenExpenseNotFoundWhenUpdating(){
+        User user = new User();
+        user.setId(1L);
+
+        when(currentUserService.getCurrentUser()).thenReturn(user);
+
+        ExpenseRequest request = new ExpenseRequest("Lunch", LocalDate.now(), 1L, new BigDecimal(500));
+
+
+        assertThrows(
+        ExpenseNotFoundException.class,
+        () -> expenseService.updateExpense(1L,request)
+      );
+    }
+
+    @Test
+    void shouldThrowExceptionWhenCategoryNotFoundWhenUpdating(){
+        User user = new User();
+        user.setId(1L);
+
+        when(currentUserService.getCurrentUser()).thenReturn(user);
+
+        ExpenseRequest request = new ExpenseRequest("Lunch", LocalDate.now(), 1L, new BigDecimal(500));
+
+         @Nullable Optional<Expense> expense = Optional.ofNullable(new Expense());
+          
+
+        when(expenseRepository.findByUserAndId(user,1L)).thenReturn(expense);
+
+
+        assertThrows(
+        CategoryNotFoundException.class,
+        () -> expenseService.updateExpense(1L,request)
+      );
+    }
+
+    @Test
+    void shouldUpdateExpenseSuccessfully(){
+
+        User user = new User();
+        user.setId(1L);
+
+        @Nullable Optional<Category> category = Optional.ofNullable(new Category());
+        Category category2 = category.get();
+        category2.setId(1L);
+
+        when(currentUserService.getCurrentUser()).thenReturn(user);
+
+        ExpenseRequest request = new ExpenseRequest("Lunch", LocalDate.now(), 1L, new BigDecimal(500));
+
+         @Nullable Optional<Expense> expense = Optional.ofNullable(new Expense());
+         Expense expense2 = expense.get();
+         expense2.setCategory(category2);
+         expense2.setUser(user);
+         expense2.setId(1L);
+
+        when(expenseRepository.findByUserAndId(user,1L)).thenReturn(expense);
+        when(categoryRepository.findById(1L)).thenReturn(category);
+
+         ExpenseResponse expenseResponse = expenseService.updateExpense(1L,request);
+
+        assertNotNull(expenseResponse);
+
+    }
+
+    @Test
+    void expenseNotFoundWhileDeleting(){
+        User user = new User();
+        user.setId(1L);
+
+        when(currentUserService.getCurrentUser()).thenReturn(user);
+
+        assertThrows(
+            ExpenseNotFoundException.class,
+            () -> expenseService.deleteExpense(1L)
+        );
+
+    }
+
+    @Test
+    void expenseDeletedSuccessfully(){
+        User user = new User();
+        user.setId(1L);
+
+        when(currentUserService.getCurrentUser()).thenReturn(user);
+
+
+         @Nullable Optional<Expense> expense = Optional.ofNullable(new Expense());
+         Expense expense2 = expense.get();
+         expense2.setUser(user);
+         expense2.setId(1L);
+
+        when(expenseRepository.findByUserAndId(user, 1L)).thenReturn(expense);
+
+        expenseService.deleteExpense(1L);
+
+         verify(expenseRepository).delete(expense2);
+
+    }
+
 }
