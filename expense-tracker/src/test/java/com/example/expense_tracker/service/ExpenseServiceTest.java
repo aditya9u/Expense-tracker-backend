@@ -2,10 +2,13 @@ package com.example.expense_tracker.service;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.doNothing;
+import static org.mockito.ArgumentMatchers.anyLong;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -37,6 +40,8 @@ public class ExpenseServiceTest {
   private  CategoryRepository categoryRepository;
   @Mock
   private  CurrentUserService currentUserService;
+  @Mock
+  private AnalyticsService analyticsService;
 
   @InjectMocks
   private ExpenseService expenseService;
@@ -63,6 +68,9 @@ public class ExpenseServiceTest {
 
     when(expenseRepository.save(any()))
             .thenReturn(savedExpense);
+
+    doNothing().when(analyticsService)
+           .updateAnalytics(anyLong());
 
 
     ExpenseResponse response =

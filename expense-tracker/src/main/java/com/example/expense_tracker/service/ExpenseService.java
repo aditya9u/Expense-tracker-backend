@@ -29,12 +29,18 @@ public class ExpenseService {
   private final ExpenseRepository expenseRepository;
   private final CategoryRepository categoryRepository;
   private final CurrentUserService currentUserService;
+  private final AnalyticsService analyticsService;
 
   public ExpenseResponse addExpense(ExpenseRequest expenseRequest) {
 
     User user = currentUserService.getCurrentUser();
 
     Category category = categoryRepository.findById(expenseRequest.categoryId()).orElseThrow(()->new CategoryNotFoundException(expenseRequest.categoryId()));
+
+     System.out.println(
+            "Controller Thread : "
+            + Thread.currentThread().getName()
+        );
 
     Expense expense = new Expense();
 
@@ -45,6 +51,8 @@ public class ExpenseService {
     expense.setDescription(expenseRequest.description());
 
     Expense expenseSaved = expenseRepository.save(expense);
+
+    analyticsService.updateAnalytics(user.getId());
 
     return mapToResponse(expenseSaved);
     

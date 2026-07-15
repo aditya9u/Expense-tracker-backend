@@ -11,6 +11,7 @@ import com.example.expense_tracker.dto.responses.*;
 import com.example.expense_tracker.entity.User;
 import com.example.expense_tracker.repository.ExpenseRepository;
 import com.example.expense_tracker.util.AnalyticsPeriod;
+import org.springframework.scheduling.annotation.Async;
 
 import lombok.RequiredArgsConstructor;
 
@@ -39,6 +40,26 @@ public class AnalyticsService {
     return expenseRepository.getCategorySpending(user, starDate, enDate);
    
   }
+
+        @Async
+        public void updateAnalytics(Long userId) {
+
+        System.out.println(
+            "Analytics running on thread: "
+            + Thread.currentThread().getName()
+        );
+
+         try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
+
+        System.out.println(
+            "Analytics Updated For User "
+            + userId
+        );
+    }
 
  private LocalDate calculateStartDate(
         AnalyticsPeriod period) {
